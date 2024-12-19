@@ -1,6 +1,7 @@
 package com.example.TaskApplication.Service;
 
 import com.example.TaskApplication.Modal.Task;
+import com.example.TaskApplication.Modal.User;
 import com.example.TaskApplication.repository.TaskRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
