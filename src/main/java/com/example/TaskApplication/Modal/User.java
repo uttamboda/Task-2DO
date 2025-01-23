@@ -16,7 +16,7 @@ public class User {
 
   private String password;
 
-  private String jwtToken;
+
 
   public User(String username, String password) {
     this.username = username;
