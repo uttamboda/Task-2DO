@@ -12,17 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @Autowired
-  UserService userService;
+  private UserService userService;
 
   @PostMapping("/Login")
   public String login(@RequestBody User user) {
-    User existingUser = userService.addUser(user.getUsername(), user.getPassword());
-
-    if (existingUser != null) {
-      return JwtUtil.createToken(user.getUsername());
-    } else {
-      throw new RuntimeException("Invalid username or password");
-    }
+    return userService.loginUser(user.getUsername(), user.getPassword());
   }
 
 }

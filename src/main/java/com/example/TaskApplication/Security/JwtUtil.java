@@ -15,7 +15,6 @@ public class JwtUtil {
     long expirationTime = now + EXPIRATION_TIME;
 
     String header = "{\"alg\":\"HS256\",\"typ\":\"JWT\"}";
-
     String payload = "{\"sub\":\"" + username + "\",\"exp\":" + expirationTime + "}";
 
     String encodedHeader = Base64.getUrlEncoder().encodeToString(header.getBytes());
@@ -61,8 +60,8 @@ public class JwtUtil {
 
       String decodedPayload = new String(Base64.getUrlDecoder().decode(payload));
 
-      String username = decodedPayload.split(",")[0].split(":")[1].replace("\"", "");
-      String expiration = decodedPayload.split(",")[1].split(":")[1];
+      String username = decodedPayload.split("\"sub\":\"")[1].split("\"")[0];
+      String expiration = decodedPayload.split("\"exp\":")[1].split("}")[0];
 
       long expirationTime = Long.parseLong(expiration);
       if (System.currentTimeMillis() > expirationTime) {
@@ -72,7 +71,7 @@ public class JwtUtil {
       return username;
 
     } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid JWT token", e);
+      throw new IllegalArgumentException("Error parsing JWT token: " + e.getMessage(), e);
     }
   }
 
